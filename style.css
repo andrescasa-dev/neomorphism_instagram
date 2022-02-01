@@ -144,3 +144,17 @@ body{
 .highlight-wrapper p{
   margin-top: 5px;
 }
+
+.photos-container{
+  margin-top: 20px;
+  display: grid;
+  gap: 3px;
+  width: 282px;
+  grid-template-columns: repeat(3,1fr);
+}
+
+.photos-container img{
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
