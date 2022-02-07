@@ -1,0 +1,26 @@
+{
+  "name": "neomorphism_instagram",
+  "version": "1.0.0",
+  "description": "This is an CSS and JS exercise where i implement the neomorphism to a functional instagram clone",
+  "main": "link.js",
+  "scripts": {
+    "test": "link.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrescasa-dev/neomorphism_instagram.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrescasa-dev/neomorphism_instagram/issues"
+  },
+  "homepage": "https://github.com/andrescasa-dev/neomorphism_instagram#readme",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "node-fetch": "^3.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
