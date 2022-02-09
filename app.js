@@ -1,5 +1,5 @@
 const API_ROOT = 'https://graph.instagram.com';
-const ACCESS_TOKEN = 'IGQVJVcE5xcXVPMV9DMXN3aGFZAWm04b0JFTjhBTjlac29zcXo5QmFBM3Y5c0tuRDZA1VkdyWW1JcDVDZAFlFRDF0YnFtZAzA2bkExRXpHdWkwREZAFR2ZATV2RFM1A2cEJLS1dWMGY0aWY2c3EzalU4YlJGOTVuOXhoS2U5NUg0';
+const ACCESS_TOKEN = 'IGQVJXSm1xQmpmWWV2OEFDd0d3QzQ3S3hIWGdIOHZAxRll3V2pYVE0wdUZAoVEF5cTk1VGVZAbHc2bjY4b3gtRmVaWG52MndHUXdTVEl6WE9ld3RVR3pFV1UtMXROeUdIRGtmMGdWNXpkNE0yaEhmZADQ1UWt6eEpIc0xTa2lB';
 const photos = document.getElementById('photos-container');
 console.log('DOM photos: ' + photos);
 
@@ -39,3 +39,13 @@ getUserIdImages().then(idImages => {
     photos.appendChild(img);
   });
 })});
+
+getUserProfileImage('salinas_costuras');
+
+async function getUserProfileImage(username){
+  const response = await fetch(`https://www.instagram.com/${username}/?__a=1`);
+  const userInfo = response.json();
+  const profileUrl = userInfo.graphql.user.profile_pic_url
+  console.log(profileUrl);
+  return profileUrl
+}
