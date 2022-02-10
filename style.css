@@ -149,7 +149,7 @@ body{
 .photos-container{
   margin-top: 40px;
   display: grid;
-  gap: 3px;
+  gap: 6px;
   width: 500px;
   grid-template-columns: repeat(3,1fr);
 }
