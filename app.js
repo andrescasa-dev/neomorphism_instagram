@@ -1,7 +1,7 @@
 const API_ROOT = 'https://graph.instagram.com';
 const ACCESS_TOKEN = 'IGQVJYWXZAVb252ZAnBaTEVJcEhjejlFTGZASQUpLMTZAsMUYzT2JEbkZAvTlhybTV2Y0N5Rnk3b1lPR2JhLXg5TUlOTWNjTFc1bGFIOXB3WTdCdTFCakdGQ0JpaHBTa3YyM25RbW9hYVJPWGkxNHVjWGZAIS1NHemhFMXJGZATRr';
 const photos = document.getElementById('photos-container');
-console.log('DOM photos: ' + photos);
+
 
 async function getUserInfo(){
   const response = await fetch(`${API_ROOT}/me?fields=username,media_count&access_token=${ACCESS_TOKEN}`);
@@ -31,11 +31,9 @@ function appendImageToFragment(img_url, fragment){
   const img = document.createElement('img');
   img.src = img_url;
   fragment.appendChild(img);
-  console.log('the image was added to the fragment');
 }
 
 async function loadImageFragment(ids, fragment){
-  console.log("starting adding images to the fragment")
   const promises = [];
   ids.forEach( 
     id => {
@@ -49,7 +47,6 @@ async function loadImageFragment(ids, fragment){
   )
   await Promise.all(promises)
   .then(() =>{
-      console.log("the fragment was loaded")
       photos.append(fragment)      
     }   
   );
@@ -58,13 +55,7 @@ async function loadImageFragment(ids, fragment){
 async function displayPhotos(){
   let fragment = document.createDocumentFragment();
   const idsImages = await getUserIdImages();
-  console.log('1');
-  loadImageFragment(idsImages, fragment)
-  .then(
-    value => {
-      console.log('finish');
-    }
-  );
+  await loadImageFragment(idsImages, fragment)
 }
 
 displayPhotos();
