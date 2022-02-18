@@ -1,6 +1,7 @@
 const API_ROOT = 'https://graph.instagram.com';
-const ACCESS_TOKEN = 'IGQVJWeUd6ZA0NFSlg4RVJQeU5ZASTlMbDZAsNC1pVFpEc1RpSXlFSUt2eXJWUWZA1WDFDazkxdGQ3blpCTWVac2E1VDhWcVhVMlJsY3l1UHlPYjNQMnRpZAGh6THp4OWtlYnJSd3VjZA0F2MWdpaVZA5OGU2cl9EZAmIzdl92QUlV';
+const ACCESS_TOKEN = 'IGQVJYWXZAVb252ZAnBaTEVJcEhjejlFTGZASQUpLMTZAsMUYzT2JEbkZAvTlhybTV2Y0N5Rnk3b1lPR2JhLXg5TUlOTWNjTFc1bGFIOXB3WTdCdTFCakdGQ0JpaHBTa3YyM25RbW9hYVJPWGkxNHVjWGZAIS1NHemhFMXJGZATRr';
 const photos = document.getElementById('photos-container');
+
 
 async function getUserInfo(){
   const response = await fetch(`${API_ROOT}/me?fields=username,media_count&access_token=${ACCESS_TOKEN}`);
@@ -33,19 +34,39 @@ async function getUserIdImages(){
  */
 async function getImageUrl(image_id){
   const response = await fetch(`${API_ROOT}/${image_id}?fields=media_url&access_token=${ACCESS_TOKEN}`);
-  const meidainfo = await response.json();
-  console.log(meidainfo.media_url);
-  return meidainfo.media_url;
+  const mediaInfo = await response.json();
+  return mediaInfo.media_url;
 }
 
-getUserIdImages()
-.then(idsImages => {
-  idsImages.forEach(id => {
-    getImageUrl(id)
-    .then(imageUrl => {
-      const img = document.createElement('img');
-      img.src = imageUrl;
-      console.log(img);
-      photos.appendChild(img);
-  });
-})});
+function appendImageToFragment(img_url, fragment){
+  const img = document.createElement('img');
+  img.src = img_url;
+  fragment.appendChild(img);
+}
+
+async function loadImageFragment(ids, fragment){
+  const promises = [];
+  ids.forEach( 
+    id => {
+      promises.push(
+        getImageUrl(id)
+        .then( 
+          imgUrl => appendImageToFragment(imgUrl, fragment)
+        )
+      );
+    }
+  )
+  await Promise.all(promises)
+  .then(() =>{
+      photos.append(fragment)      
+    }   
+  );
+}
+
+async function displayPhotos(){
+  let fragment = document.createDocumentFragment();
+  const idsImages = await getUserIdImages();
+  await loadImageFragment(idsImages, fragment)
+}
+
+displayPhotos();
